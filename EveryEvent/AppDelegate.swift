@@ -1,19 +1,19 @@
-//
-//  AppDelegate.swift
-//  EveryEvent
-//
-//  Created by S3lfcode on 24.04.2023.
-//
-
 import UIKit
+import FirebaseCore
+import YandexMapsMobile
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        //MARK: Adding YandexMaps into project
+        YMKMapKit.setApiKey("0562df40-f5a8-4def-ad28-eb68468b4678")
+        YMKMapKit.setLocale("ru_RU")
+        YMKMapKit.sharedInstance()
+        
+        //MARK: Adding firebase into project
+        FirebaseApp.configure()
+
         return true
     }
 
