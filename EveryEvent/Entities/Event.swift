@@ -12,6 +12,7 @@ struct Event {
     let lng: Double?
     let name: String?
     let urlImage: String?
+    var promotionCount: Int?
     
     var representation: [String: Any] {
         var repres = [String: Any]()
@@ -26,6 +27,7 @@ struct Event {
         repres["lng"] = lng
         repres["name"] = name
         repres["urlImage"] = urlImage
+        repres["promotionCount"] = promotionCount
         
         return repres
     }
@@ -39,7 +41,8 @@ struct Event {
         lat: Double?,
         lng: Double?,
         name: String?,
-        urlImage: String?
+        urlImage: String?,
+        promotionCount: Int? = 0
     ) {
         self.id = UUID().uuidString
         self.userId = userId
@@ -51,6 +54,7 @@ struct Event {
         self.lng = lng
         self.name = name
         self.urlImage = urlImage
+        self.promotionCount = 0
     }
     
     init?(doc: QueryDocumentSnapshot) {
@@ -67,6 +71,7 @@ struct Event {
         self.lng = data["lng"] as? Double
         self.name = data["name"] as? String
         self.urlImage = data["urlImage"] as? String
+        self.promotionCount = data["promotionCount"] as? Int
         
     }
 }

@@ -24,6 +24,10 @@ final class EventCreateVC<View: EventCreateView>: BaseViewController<View> {
                 self?.loadSuggestion(address: address)
             }
         }
+        
+        rootView.onPresent = { [weak self] viewController, animated in
+            self?.navigationController?.present(viewController, animated: animated)
+        }
     }
     
     private func createEvent() {

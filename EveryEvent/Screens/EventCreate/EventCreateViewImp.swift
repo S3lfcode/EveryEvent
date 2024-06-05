@@ -19,6 +19,9 @@ final class EventCreateViewImp: UIView {
     
     //MARK: Properties
     var onCreateAction: ((_ name: String, _ url: String, _ category: String, _ address: String, _ date: String, _ desc: String) -> Void)?
+    var onPresent: ((UIViewController, Bool) -> Void)?
+    
+    private var eventImageURL: String?
     
     //MARK: PageName
     private lazy var pageNameLabel: UILabel = {
@@ -74,21 +77,54 @@ final class EventCreateViewImp: UIView {
         return label
     }()
     
-    private lazy var imageTextField: UITextField = {
-        let textField = UITextField()
+    private lazy var imageTextLabel: UILabel = {
+        let label = UILabel()
 
-        textField.placeholder = "  Введите url картинки"
-        defaultTextFieldConfigure(textField: textField)
+        label.text = "  Картинка не выбрана"
+        label.textColor = .red
+        label.textColor = .black
+        label.layer.borderWidth = 1
+        label.layer.borderColor = A.Colors.Primary.blue.color.cgColor
+        label.backgroundColor = A.Colors.Background.background.color
+        label.heightAnchor.constraint(greaterThanOrEqualToConstant: 30).isActive = true
+        defaultLabelConfigure(label: label)
         
-        return textField
+        return label
     }()
+    
+    private lazy var chooseImageButton: UIButton = {
+        let button = UIButton()
+        
+        button.setImage(UIImage(systemName: "photo"), for: .normal)
+        button.addTarget(self, action: #selector(didTapChangeChooseImage), for: .touchUpInside)
+        button.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        return button
+    }()
+    
+    private lazy var imageHorizontalStackView: UIStackView = {
+        let stackView = UIStackView(
+            arrangedSubviews: [imageTextLabel, chooseImageButton]
+        )
+        
+        stackView.setCustomSpacing(5, after: imageTextLabel)
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        
+        return stackView
+    }()
+    
+    @objc private func didTapChangeChooseImage() {
+        presentPhotoActionSheet()
+    }
     
     private lazy var imageStackView: UIStackView = {
         let stackView = UIStackView(
             arrangedSubviews:
                 [
                     imageLabel,
-                    imageTextField
+                    imageHorizontalStackView
                 ]
         )
         
@@ -278,7 +314,7 @@ final class EventCreateViewImp: UIView {
     @objc
     private func createEventAction() {
         guard let name = nameTextField.text,
-              let url = imageTextField.text,
+              let url = eventImageURL,
               let category = categoryTextField.text,
               let address = currentAddressLabel.text,
               let date = dateTextField.text,
@@ -640,4 +676,69 @@ private extension EventCreateViewImp {
         stackView.distribution = .fill
     }
     
+}
+
+extension EventCreateViewImp: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func presentPhotoActionSheet() {
+        let actionSheet = UIAlertController(
+            title: "Фото мероприятия",
+            message: "Как бы вы хотели выбрать фото?",
+            preferredStyle: .actionSheet
+        )
+        actionSheet.addAction(UIAlertAction(title: "Сфотографировать", style: .default, handler: { [weak self] _ in
+            self?.presentCamera()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Выбрать фотографию", style: .default, handler: { [weak self] _ in
+            self?.presentPhotoPicker()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+        
+        onPresent?(actionSheet, true)
+    }
+    
+    func presentCamera() {
+        let vc = UIImagePickerController()
+        vc.sourceType = .camera
+        vc.delegate = self
+        vc.allowsEditing = true
+        onPresent?(vc, true)
+    }
+    
+    func presentPhotoPicker() {
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.delegate = self
+        vc.allowsEditing = true
+        onPresent?(vc, true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+            return
+        }
+        
+        guard let data = selectedImage.pngData() else {
+            return
+        }
+        
+        let fileName = "photo_event_" + UUID().uuidString.replacingOccurrences(of: " ", with: "-") + ".png"
+        
+        StorageService.shared.uploadEventPhoto(with: data, fileName: fileName) { [weak self] result in
+            switch result {
+            case .success(let downloadUrl):
+                print(downloadUrl)
+                self?.eventImageURL = downloadUrl
+                self?.imageTextLabel.text = "Картинка выбрана"
+                self?.imageTextLabel.textColor = .green
+            case .failure(let error):
+                print("Произошла ошибка менеджера хранилища: \(error)")
+            }
+        }
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
 }

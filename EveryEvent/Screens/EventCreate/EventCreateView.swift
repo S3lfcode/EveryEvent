@@ -7,6 +7,7 @@ protocol EventCreateView: UIView {
 //    var deliveryButton: Button { get }
     var collectionManager: CollectionManager { get }
     var map: YMKMap { get }
+    var onPresent: ((UIViewController, Bool) -> Void)? { get set }
 
     func locationChanged(_ locationChanged: @escaping((Coordinates, Bool) -> Void))
     func addressChanged(_ addressChanged: @escaping((String?) -> Void))

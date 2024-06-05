@@ -218,6 +218,7 @@ private extension CatalogVC {
                 desc: value.desc,
                 name: value.name,
                 urlImage: value.urlImage,
+                promotionCount: value.promotionCount ?? 0,
                 onSelect: { [weak self] in
                     print("Select \(item) item")
                     

@@ -13,18 +13,26 @@ final class EventCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        promotionView.isHidden = true
+    }
+    
     var onSelectLike: (() -> Void)?
     
     //MARK: Setup subviews & constraints
     private func setup() {
         contentView.addSubview(eventImageView)
         contentView.addSubview(descProductStackView)
+        contentView.addSubview(promotionView)
         
         NSLayoutConstraint.activate(
             [
                 eventImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
                 eventImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
                 eventImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                
+                promotionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 3),
+                promotionView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 3),
                 
                 descProductStackView.topAnchor.constraint(equalTo: eventImageView.bottomAnchor, constant: 12),
                 descProductStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -47,6 +55,63 @@ final class EventCell: UICollectionViewCell {
         imageView.layer.borderColor = A.Colors.Grayscale.midGray.color.cgColor
         
         return imageView
+    }()
+    
+    lazy var promoCountLabel: UILabel = {
+        let label = UILabel()
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .black
+        
+        return label
+    }()
+    
+    lazy var promotionView: UIView = {
+        let view = UIView()
+        view.isHidden = true
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 10
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.blue.cgColor
+        
+        
+        let starView = UIView()
+        starView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.image = UIImage(systemName: "star.fill")
+        image.tintColor = .blue
+        
+        starView.addSubview(image)
+        
+        view.addSubview(starView)
+        view.addSubview(promoCountLabel)
+        
+        
+        NSLayoutConstraint.activate(
+            [
+                starView.leftAnchor.constraint(equalTo: view.leftAnchor),
+                starView.topAnchor.constraint(equalTo: view.topAnchor),
+                starView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                starView.widthAnchor.constraint(equalToConstant: 25),
+                starView.heightAnchor.constraint(equalToConstant: 25),
+                
+                image.centerXAnchor.constraint(equalTo: starView.centerXAnchor),
+                image.centerYAnchor.constraint(equalTo: starView.centerYAnchor),
+                image.widthAnchor.constraint(equalToConstant: 18),
+                image.heightAnchor.constraint(equalToConstant: 18),
+                
+                promoCountLabel.leftAnchor.constraint(equalTo: starView.rightAnchor),
+                promoCountLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -5),
+                promoCountLabel.topAnchor.constraint(equalTo: view.topAnchor),
+                promoCountLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ]
+        )
+        
+        return view
     }()
     
     private func updateProductImage(url: String?) {
@@ -184,5 +249,9 @@ extension EventCell {
         addressLabel.text = data.address ?? "-"
         categoryLabel.text = data.category ?? "-"
         updateProductImage(url: data.urlImage)
+        if data.promotionCount > 0 {
+            promotionView.isHidden = false
+            promoCountLabel.text = String(data.promotionCount)
+        }
     }
 }

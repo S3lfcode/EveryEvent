@@ -55,7 +55,17 @@ class DatabaseService {
             
         }
     }
-    
+
+    func getSafeEmail() -> String {
+        guard let email = UserDefaults.standard.string(forKey: "email") else {
+            return ""
+        }
+
+        var safeEmail = email.replacingOccurrences(of: ".", with: "-")
+        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
+        return safeEmail
+    }
+
     func getProfile(completion: @escaping (Result<DataUser, Error>) -> Void) {
         guard let currentUser = AuthService.shared.currentUser else {
             completion(.failure(.userIsNil))
@@ -80,7 +90,7 @@ class DatabaseService {
             let user = DataUser(
                 id: doc["id"] as? String,
                 name: doc["name"] as? String,
-                phone: doc["phone"] as? String,
+                lastName: doc["lastName"] as? String,
                 email: doc["email"] as? String,
                 passw: doc["passw"] as? String
             )
@@ -108,7 +118,7 @@ class DatabaseService {
             let user = DataUser(
                 id: doc["id"] as? String,
                 name: doc["name"] as? String,
-                phone: doc["phone"] as? String,
+                lastName: doc["lastName"] as? String,
                 email: doc["email"] as? String,
                 passw: doc["passw"] as? String
             )

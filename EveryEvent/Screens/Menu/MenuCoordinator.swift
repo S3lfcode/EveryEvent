@@ -52,6 +52,18 @@ final class MenuCoordinator: Coordinator<Assembly, UINavigationController, Void>
             )
         }
         
+        controller.onConversations = { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            start(
+                coordinator: self.assembly.conversationsCoordinator(),
+                on: self.root,
+                animated: true
+            )
+        }
+        
         
         return controller
     }

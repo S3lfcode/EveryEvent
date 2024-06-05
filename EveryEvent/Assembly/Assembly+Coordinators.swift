@@ -43,4 +43,8 @@ extension Assembly {
     func tabBarCoordinator() -> TabBarCoordinator {
         .init(assembly: self)
     }
+    
+    func conversationsCoordinator() -> ConversationsCoordinator {
+        .init(assembly: self)
+    }
 }

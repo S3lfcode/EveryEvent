@@ -10,7 +10,7 @@ struct Request {
     let eventDate: String?
     let eventImage: String?
     let userName: String?
-    let userPhone: String?
+    let userLastName: String?
     let userImage: String?
     
     var representation: [String: Any] {
@@ -25,13 +25,13 @@ struct Request {
         repres["eventDate"] = eventDate
         repres["eventImage"] = eventImage
         repres["userName"] = userName
-        repres["userPhone"] = userPhone
+        repres["userLastName"] = userLastName
         repres["userImage"] = userImage
         
         return repres
     }
     
-    init(id: String, status: String?, userID: String?, eventID: String?, eventOwnerID: String?, eventName: String?, eventDate: String?, eventImage: String?, userName: String?, userPhone: String?, userImage: String?) {
+    init(id: String, status: String?, userID: String?, eventID: String?, eventOwnerID: String?, eventName: String?, eventDate: String?, eventImage: String?, userName: String?, userLastName: String?, userImage: String?) {
         self.id = id
         self.status = status
         self.userID = userID
@@ -41,7 +41,7 @@ struct Request {
         self.eventDate = eventDate
         self.eventImage = eventImage
         self.userName = userName
-        self.userPhone = userPhone
+        self.userLastName = userLastName
         self.userImage = userImage
     }
     
@@ -58,7 +58,7 @@ struct Request {
         self.eventDate = data["eventDate"] as? String
         self.eventImage = data["eventImage"] as? String
         self.userName = data["userName"] as? String
-        self.userPhone = data["userPhone"] as? String
+        self.userLastName = data["userLastName"] as? String
         self.userImage = data["userImage"] as? String
     }
 }

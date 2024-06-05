@@ -9,7 +9,7 @@ struct ProfileRequestData {
     let eventDate: String?
     let eventImage: String?
     let userName: String?
-    let userPhone: String?
+    let userLastName: String?
     let userImage: String?
     
     var onApply: () -> Void

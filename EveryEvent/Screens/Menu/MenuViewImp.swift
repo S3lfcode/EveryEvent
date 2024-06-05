@@ -18,7 +18,7 @@ final class MenuViewImp: UIView, MenuView {
     //MARK: Properties
     var onProfile: (() -> Void)?
     var onCatalog: (() -> Void)?
-    var onMyEvent: (() -> Void)?
+    var onConversations: (() -> Void)?
     var onCreateEvent: (() -> Void)?
     var onSettings: (() -> Void)?
     var onLogOut: (() -> Void)?
@@ -56,12 +56,13 @@ final class MenuViewImp: UIView, MenuView {
         return button
     }()
     
-    private lazy var myEventsButton: UIButton = {
+    private lazy var myConversationsButton: UIButton = {
         let button = UIButton()
         
         button.setImage(A.Images.Menu.myEvents.image, for: .normal)
-        button.setTitle("    Мои мероприятия", for: .normal)
+        button.setTitle("    Мои обсуждения", for: .normal)
         defaultButtonSetup(button: button)
+        button.addTarget(self, action: #selector(toConversations), for: .touchUpInside)
         
         return button
     }()
@@ -106,7 +107,7 @@ final class MenuViewImp: UIView, MenuView {
                     titleLabel,
                     profileButton,
                     catalogButton,
-                    myEventsButton,
+                    myConversationsButton,
                     createEventButton,
                     settingsButton,
                     logOutButton
@@ -134,8 +135,8 @@ final class MenuViewImp: UIView, MenuView {
     }
     
     @objc
-    private func toMyEvent() {
-        onMyEvent?()
+    private func toConversations() {
+        onConversations?()
     }
     
     @objc

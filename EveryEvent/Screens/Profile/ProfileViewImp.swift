@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import Kingfisher
 
 final class ProfileViewImp: UIView, ProfileView {
     enum RequestFilteredState {
@@ -77,10 +78,10 @@ final class ProfileViewImp: UIView, ProfileView {
         return label
     }()
     
-    private lazy var phoneLabel: UILabel = {
+    private lazy var lastNameLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "+7 XXXXXXXXXX"
+        label.text = "UserLastName"
         
         return label
     }()
@@ -97,7 +98,7 @@ final class ProfileViewImp: UIView, ProfileView {
             arrangedSubviews:
                 [
                     nameLabel,
-                    phoneLabel,
+                    lastNameLabel,
                     emailLabel
                 ]
         )
@@ -340,8 +341,30 @@ private extension ProfileViewImp {
 extension ProfileViewImp {
     func updateProfile(user: DataUser) {
         nameLabel.text = user.name
-        phoneLabel.text = user.phone
+        lastNameLabel.text = user.lastName
         emailLabel.text = user.email
+        
+        let safeEmail = DatabaseService.shared.getSafeEmail()
+        let filename = safeEmail + "_profile_picture.png"
+        let path = "images/" + filename
+
+        StorageService.shared.downloadURL(for: path) { [weak self] result in
+            if case .success(let url) = result {
+                self?.userImageView.kf.indicatorType = .activity
+                self?.userImageView.kf.setImage(
+                    with: url,
+                    placeholder: A.Images.Profile.photo.image,
+                    options: [
+                        .transition(.fade(0.2)),
+                        .processor(
+                            DownsamplingImageProcessor(
+                                size: CGSize(width: 200, height: 200)
+                            )
+                        )
+                    ]
+                )
+            }
+        }
     }
 }
 
@@ -400,6 +423,24 @@ extension ProfileViewImp: UIImagePickerControllerDelegate, UINavigationControlle
             return
         }
         self.userImageView.image = selectedImage
+        guard let image = self.userImageView.image, let data = image.pngData() else {
+            return
+        }
+        
+        DatabaseService.shared.getProfile { result in
+            if case .success(let dataUser) = result {
+                let filename = dataUser.profilePictureFilename
+                StorageService.shared.uploadProfilePicture(with: data, fileName: filename) { result in
+                    switch result {
+                    case .success(let downloadUrl):
+                        UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
+                        print(downloadUrl)
+                    case .failure(let error):
+                        print("Произошла ошибка менеджера хранилища: \(error)")
+                    }
+                }
+            }
+        }
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

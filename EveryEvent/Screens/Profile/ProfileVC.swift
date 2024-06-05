@@ -74,7 +74,7 @@ private extension ProfileVC {
                 eventDate: value.eventDate,
                 eventImage: value.eventImage,
                 userName: value.userName,
-                userPhone: value.userPhone,
+                userLastName: value.userLastName,
                 userImage: value.userImage,
                 onApply: { [weak self] in
                     self?.changeStatus(status: "Подтверждена", currentRequest: value)
@@ -102,8 +102,8 @@ private extension ProfileVC {
             eventDate: currentRequest.eventDate,
             eventImage: currentRequest.eventImage,
             userName: currentRequest.userName,
-            userPhone: currentRequest.userPhone,
-            userImage: "-"
+            userLastName: currentRequest.userLastName,
+            userImage: currentRequest.userImage
         )
 
         DatabaseService.shared.setRequest(request: request) { result in

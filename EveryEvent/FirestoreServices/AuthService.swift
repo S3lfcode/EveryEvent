@@ -30,7 +30,8 @@ class AuthService {
                 
                 return
             }
-            
+
+            UserDefaults.standard.set(email, forKey: "email")
             completion(.success(result.user))
         }
     }
@@ -50,7 +51,7 @@ class AuthService {
                 
                 return
             }
-            
+            UserDefaults.standard.set(email, forKey: "email")
             completion(.success(result.user))
         }
     }

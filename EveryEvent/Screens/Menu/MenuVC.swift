@@ -5,7 +5,7 @@ final class MenuVC<View: MenuView>: BaseViewController<View> {
     //MARK: Properties
     var onProfile: (() -> Void)?
     var onCatalog: (() -> Void)?
-    var onMyEvent: (() -> Void)?
+    var onConversations: (() -> Void)?
     var onCreateEvent: (() -> Void)?
     var onSettings: (() -> Void)?
     var onLogOut: (() -> Void)?
@@ -17,7 +17,7 @@ final class MenuVC<View: MenuView>: BaseViewController<View> {
         
         rootView.onProfile = onProfile
         rootView.onCatalog = onCatalog
-        rootView.onMyEvent = onMyEvent
+        rootView.onConversations = onConversations
         rootView.onCreateEvent = onCreateEvent
         rootView.onSettings = onSettings
         rootView.onLogOut = onLogOut

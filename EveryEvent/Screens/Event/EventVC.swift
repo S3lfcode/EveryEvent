@@ -15,7 +15,7 @@ class EventVC<View: EventView>: BaseViewController<View> {
     }
     
     //MARK: Properties
-    private let event: Event
+    private var event: Event
     private var user: DataUser?
     var onCatalog: (() -> Void)?
     
@@ -25,7 +25,7 @@ class EventVC<View: EventView>: BaseViewController<View> {
         
         updateInfoPage()
         
-        sendRequest()
+        configure()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,6 +35,15 @@ class EventVC<View: EventView>: BaseViewController<View> {
     private func updateInfoPage() {
         guard let userId = event.userId else {
             return
+        }
+        
+        DatabaseService.shared.getProfile { [weak self] result in
+            if case .success(let user) = result {
+                self?.rootView.displayLikeButton(
+                    show: user.id != userId,
+                    enable: true
+                )
+            }
         }
         
         DatabaseService.shared.getDataUser(userId: userId) { [weak self] result in
@@ -87,7 +96,20 @@ class EventVC<View: EventView>: BaseViewController<View> {
     }
     
     //MARK: Sending an application for participation in the event
-    private func sendRequest() {
+    private func configure() {
+        rootView.onLike = { [weak self] in
+            guard let self else { return }
+            let currentCount = self.event.promotionCount ?? 0
+            
+            self.event.promotionCount = currentCount + 1
+            DatabaseService.shared.setEvent(event: self.event) { result in
+                if case .success(let event) = result {
+                    print("Голос за мероприятие засчитан. Текущих голосов на мероприятие \(event.name): \(event.promotionCount)")
+                    self.rootView.displayLikeButton(show: true, enable: false)
+                }
+            }
+        }
+        
         rootView.onRequest = {
             DatabaseService.shared.getProfile { result in
                 DatabaseService.shared.getProfile { [weak self] result in
@@ -95,6 +117,16 @@ class EventVC<View: EventView>: BaseViewController<View> {
                     case .success(let user):
                         guard let event = self?.event else {
                             return
+                        }
+                        let safeEmail = DatabaseService.shared.getSafeEmail()
+                        let filename = safeEmail + "_profile_picture.png"
+                        let path = "images/" + filename
+
+                        var imageURL = ""
+                        StorageService.shared.downloadURL(for: path) { result in
+                            if case .success(let url) = result {
+                                imageURL = url.absoluteString
+                            }
                         }
                         
                         let request = Request(
@@ -107,10 +139,10 @@ class EventVC<View: EventView>: BaseViewController<View> {
                             eventDate: event.date,
                             eventImage: event.urlImage,
                             userName: user.name,
-                            userPhone: user.phone,
-                            userImage: "-"
+                            userLastName: user.lastName,
+                            userImage: imageURL
                         )
-                        
+
                         DatabaseService.shared.setRequest(request: request) { result in
                             switch result {
                             case .success(let event):

@@ -17,7 +17,7 @@ final class RegViewImp: UIView, RegView {
     }
     
     //MARK: Properties
-    var onRegAction: ((_ name: String, _ phone: String, _ email: String, _ passw: String) -> Void)?
+    var onRegAction: ((_ name: String, _ lastName: String, _ email: String, _ passw: String) -> Void)?
     var onLoginAction: (() -> Void)?
     
     enum Constants {
@@ -58,48 +58,58 @@ final class RegViewImp: UIView, RegView {
         return textField
     }()
     
-    //MARK: Phone
-    private lazy var numberCodeLabel: UILabel = {
-        let label = UILabel()
-        
-        label.text = "+7"
-        label.textAlignment = .center
-        label.textColor = A.Colors.Background.placeholder.color
-        label.backgroundColor = A.Colors.Background.background.color
-        label.font = .systemFont(ofSize: Constants.fontSize)
-        label.heightAnchor.constraint(equalToConstant: 56).isActive = true
-        label.widthAnchor.constraint(equalToConstant: 45).isActive = true
-        label.layer.masksToBounds = true
-        label.layer.cornerRadius = 6
-        
-        return label
-    }()
-    
-    private lazy var phoneTextField: UITextField = {
+    //MARK: Name
+    private lazy var lastNameTextField: UITextField = {
         let textField = UITextField()
         
-        textField.placeholder = "  Номер телефона"
+        textField.placeholder = "  Фамилия"
         configureTF(textField: textField)
         
         return textField
     }()
     
-    private lazy var phoneStackView: UIStackView = {
-        let stackView = UIStackView(
-            arrangedSubviews:
-                [
-                    numberCodeLabel,
-                    phoneTextField
-                ]
-        )
-        
-        stackView.distribution = .fill
-        stackView.alignment = .fill
-        stackView.axis = .horizontal
-        stackView.spacing = 9
-        
-        return stackView
-    }()
+    //MARK: Phone
+//    private lazy var numberCodeLabel: UILabel = {
+//        let label = UILabel()
+//        
+//        label.text = "+7"
+//        label.textAlignment = .center
+//        label.textColor = A.Colors.Background.placeholder.color
+//        label.backgroundColor = A.Colors.Background.background.color
+//        label.font = .systemFont(ofSize: Constants.fontSize)
+//        label.heightAnchor.constraint(equalToConstant: 56).isActive = true
+//        label.widthAnchor.constraint(equalToConstant: 45).isActive = true
+//        label.layer.masksToBounds = true
+//        label.layer.cornerRadius = 6
+//        
+//        return label
+//    }()
+    
+//    private lazy var phoneTextField: UITextField = {
+//        let textField = UITextField()
+//        
+//        textField.placeholder = "  Номер телефона"
+//        configureTF(textField: textField)
+//        
+//        return textField
+//    }()
+    
+//    private lazy var phoneStackView: UIStackView = {
+//        let stackView = UIStackView(
+//            arrangedSubviews:
+//                [
+//                    numberCodeLabel,
+//                    phoneTextField
+//                ]
+//        )
+//        
+//        stackView.distribution = .fill
+//        stackView.alignment = .fill
+//        stackView.axis = .horizontal
+//        stackView.spacing = 9
+//        
+//        return stackView
+//    }()
     
     //MARK: E-mail
     private lazy var emailTextField: UITextField = {
@@ -196,7 +206,7 @@ final class RegViewImp: UIView, RegView {
     @objc
     private func regAction() {
         guard let name = nameTextField.text,
-              let phone = phoneTextField.text,
+              let lastName = lastNameTextField.text,
               let email = emailTextField.text,
               let passw = passwordTextField.text
         else {
@@ -205,7 +215,7 @@ final class RegViewImp: UIView, RegView {
         }
         
         guard textFieldValidator(textField: nameTextField),
-              textFieldValidator(textField: phoneTextField),
+              textFieldValidator(textField: lastNameTextField),
               textFieldValidator(textField: emailTextField),
               textFieldValidator(textField: passwordTextField)
         else {
@@ -213,7 +223,7 @@ final class RegViewImp: UIView, RegView {
             return
         }
         
-        onRegAction?(name, "+7".appending(phone), email, passw)
+        onRegAction?(name, lastName, email, passw)
     }
     
     @objc
@@ -228,7 +238,7 @@ final class RegViewImp: UIView, RegView {
                 [
                     titleLabel,
                     nameTextField,
-                    phoneStackView,
+                    lastNameTextField,
                     emailTextField,
                     passwordTextField,
                     regButton,

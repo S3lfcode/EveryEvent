@@ -7,6 +7,7 @@ struct EventCellData {
     let desc: String?
     let name: String?
     let urlImage: String?
+    let promotionCount: Int
     
     var onSelect: () -> Void
 }

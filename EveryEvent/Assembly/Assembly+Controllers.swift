@@ -50,4 +50,8 @@ extension Assembly {
     func tabBarVC() -> TabBarController {
         .init()
     }
+    
+    func conversationsVC() -> ConversationsVC<ConversationsViewImp> {
+        .init()
+    }
 }

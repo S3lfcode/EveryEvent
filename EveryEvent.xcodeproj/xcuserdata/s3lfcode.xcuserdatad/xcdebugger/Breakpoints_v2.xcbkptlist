@@ -3,4 +3,70 @@
    uuid = "9E0F7824-8474-4395-92E7-08DE15542D39"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9AB3F825-71EB-4062-8065-AA112D159E62"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EveryEvent/Screens/Conversations/ConversationsViewImp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "startListeningForConversations()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "9AB3F825-71EB-4062-8065-AA112D159E62 - f52c1d2ad47ee887"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;Swift.Array&lt;EveryEvent.Conversation&gt;, Swift.Error&gt;) -&gt; () in EveryEvent.ConversationsViewImp.startListeningForConversations() -&gt; ()"
+                  moduleName = "EveryEvent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/s3lfcode/Documents/Development/EveryEvent/EveryEvent/Screens/Conversations/ConversationsViewImp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "97"
+                  endingLineNumber = "97"
+                  offsetFromSymbolStart = "1400">
+               </Location>
+               <Location
+                  uuid = "9AB3F825-71EB-4062-8065-AA112D159E62 - f52c1d2ad47ee887"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;Swift.Array&lt;EveryEvent.Conversation&gt;, Swift.Error&gt;) -&gt; () in EveryEvent.ConversationsViewImp.startListeningForConversations() -&gt; ()"
+                  moduleName = "EveryEvent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/s3lfcode/Documents/Development/EveryEvent/EveryEvent/Screens/Conversations/ConversationsViewImp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "97"
+                  endingLineNumber = "97"
+                  offsetFromSymbolStart = "1200">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "80CDA74A-C2C4-4D29-8024-49BFEE856F52"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EveryEvent/Screens/EventCreate/EventCreateViewImp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "732"
+            endingLineNumber = "732"
+            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

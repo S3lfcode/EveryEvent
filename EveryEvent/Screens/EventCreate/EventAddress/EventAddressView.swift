@@ -1,7 +1,4 @@
-////
-////  petrovich
-////  Copyright © 2023 Heads and Hands. All rights reserved.
-////
+
 //
 //import UIKit
 //import YandexMapsMobile

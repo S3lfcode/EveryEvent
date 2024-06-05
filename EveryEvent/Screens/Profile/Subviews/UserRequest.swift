@@ -118,17 +118,6 @@ final class UserRequest: UICollectionViewCell {
         return label
     }()
     
-    //MARK: User phone
-    private lazy var userPhoneLabel: UILabel = {
-        let label = UILabel()
-        
-        label.textColor = A.Colors.Grayscale.black.color
-        label.font = .systemFont(ofSize: 14)
-        label.text = "+7934253423"
-        
-        return label
-    }()
-    
     //MARK: RequestInfo
     lazy var requestInfoStackView: UIStackView = {
         let stackView = UIStackView(
@@ -136,7 +125,6 @@ final class UserRequest: UICollectionViewCell {
                 [
                     cellType,
                     userNameLabel,
-                    userPhoneLabel,
                     eventNameLabel,
                     eventDateLabel
                 ]
@@ -335,7 +323,7 @@ extension UserRequest {
         } else {
             cellType.text = "Тип: входящая"
             cellImageView.image = A.Images.Profile.photo.image
-            
+            updateImage(url: data.userImage ?? "-")
             switch data.status {
             case "Сформирована":
                 statusLabel.isHidden = true
@@ -363,8 +351,7 @@ extension UserRequest {
         
         eventNameLabel.text = "Название: \(data.eventName ?? "-")"
         eventDateLabel.text = "Дата: \(data.eventDate ?? "-")"
-        userNameLabel.text = "Имя пользователя: \(data.userName ?? "-")"
-        userPhoneLabel.text = "Телефон: \(data.userPhone ?? "-")"
+        userNameLabel.text = "Имя пользователя: \(data.userName ?? "-") \(data.userLastName ?? "-")"
         
         onApply = data.onApply
         onReject = data.onReject

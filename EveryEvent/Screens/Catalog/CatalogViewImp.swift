@@ -6,15 +6,15 @@ final class CatalogViewImp: UIView, CatalogView {
     public let placeInfoView = PlaceInfoView().ui.alpha(0).forAutoLayout()
     
     private var placeInfoBottomConstraint: NSLayoutConstraint?
-
+    
     private var bottomViewTopConstraint: NSLayoutConstraint?
-
+    
     private var bottomViewHeightConstraint: NSLayoutConstraint!
     
     //MARK: Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
         backgroundColor = A.Colors.white.color
         
         setup()
@@ -30,7 +30,7 @@ final class CatalogViewImp: UIView, CatalogView {
     public var map: YMKMap {
         mapView.mapWindow.map
     }
-
+    
     private(set) lazy var mapView: YMKMapView = {
         let isM1Silulator = (TARGET_IPHONE_SIMULATOR & TARGET_CPU_ARM64) != 0
         let map = YMKMapView(frame: .zero, vulkanPreferred: isM1Silulator )
@@ -114,8 +114,9 @@ final class CatalogViewImp: UIView, CatalogView {
                 headerStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.padding),
                 headerStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.padding),
                 
-                filterStackView.topAnchor.constraint(equalTo: listFilterTitleButton.bottomAnchor),
+                filterStackView.topAnchor.constraint(equalTo: listFilterTitleButton.topAnchor),
                 filterStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 33),
+                filterStackView.widthAnchor.constraint(equalToConstant: 200),
                 
                 catalogCollectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
                 catalogCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -144,6 +145,7 @@ final class CatalogViewImp: UIView, CatalogView {
     
     @objc
     private func refresh(sender: UIRefreshControl) {
+        listFilterTitleButton.setTitle(defaultFilterButton.currentTitle, for: .normal)
         onRefresh?()
     }
     
@@ -210,31 +212,6 @@ final class CatalogViewImp: UIView, CatalogView {
         if filterStackView.isHidden {
             filterStackView.isHidden = false
             
-            switch listFilterTitleButton.currentTitle {
-            case defaultFilterButton.currentTitle:
-                defaultFilterButton.isHidden = true
-                nameAZFilterButton.isHidden = false
-                nameZAFilterButton.isHidden = false
-                categoryFilterButton.isHidden = false
-            case nameAZFilterButton.currentTitle:
-                defaultFilterButton.isHidden = false
-                nameAZFilterButton.isHidden = true
-                nameZAFilterButton.isHidden = false
-                categoryFilterButton.isHidden = false
-            case nameZAFilterButton.currentTitle:
-                defaultFilterButton.isHidden = false
-                nameAZFilterButton.isHidden = false
-                nameZAFilterButton.isHidden = true
-                categoryFilterButton.isHidden = false
-            case categoryFilterButton.currentTitle:
-                defaultFilterButton.isHidden = false
-                nameAZFilterButton.isHidden = false
-                nameZAFilterButton.isHidden = false
-                categoryFilterButton.isHidden = true
-            default:
-                print("Что-то пошло не так (меню фильтрации)")
-            }
-            
         } else {
             filterStackView.isHidden = true
         }
@@ -250,10 +227,31 @@ final class CatalogViewImp: UIView, CatalogView {
         button.contentHorizontalAlignment = .left
         button.heightAnchor.constraint(equalToConstant: 25).isActive = true
         button.addTarget(self, action: #selector(defaultAction), for: .touchUpInside)
-        button.isHidden = true
         
         return button
     }()
+    
+    private lazy var bestEventsFilterButton: UIButton = {
+        let button = UIButton()
+        
+        button.setTitle(" Лучшие мероприятия", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont(name: "GothamSSm-Medium", size: 14)
+        button.contentHorizontalAlignment = .left
+        button.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        button.addTarget(self, action: #selector(bestEventsFilterAction), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    @objc
+    private func bestEventsFilterAction() {
+        let data = defaultCellData.sorted(by: { $0.promotionCount > $1.promotionCount })
+        self.cellData = data
+        catalogCollectionView.reloadData()
+        filterStackView.isHidden = true
+        listFilterTitleButton.setTitle(bestEventsFilterButton.currentTitle, for: .normal)
+    }
     
     @objc
     private func defaultAction() {
@@ -337,18 +335,20 @@ final class CatalogViewImp: UIView, CatalogView {
                     defaultFilterButton,
                     nameAZFilterButton,
                     nameZAFilterButton,
-                    categoryFilterButton
+                    categoryFilterButton,
+                    bestEventsFilterButton
                 ]
         )
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.widthAnchor.constraint(equalToConstant: 140).isActive = true
         stackView.axis = .vertical
         stackView.spacing = 2
         stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.backgroundColor = .white
         stackView.isHidden = true
+        stackView.layer.borderWidth = 1
+        stackView.layer.borderColor = UIColor.gray.cgColor
         
         return stackView
     }()

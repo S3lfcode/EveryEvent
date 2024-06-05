@@ -23,6 +23,11 @@ final class AuthVC<View: AuthView>: BaseViewController<View> {
                 switch result {
                 case .success(let user):
                     print("Пользователь: \(user) вошел в аккаунт")
+                    DatabaseService.shared.getDataUser(userId: user.uid) { result in
+                        if case .success(let user) = result, let name = user.name, let lastName = user.lastName {
+                            UserDefaults.standard.set("\(name) \(lastName)", forKey: "name")
+                        }
+                    }
                 case .failure(let error):
                     print("Ошибка входа \(error.localizedDescription)")
                 }

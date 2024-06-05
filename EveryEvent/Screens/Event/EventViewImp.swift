@@ -19,6 +19,8 @@ class EventViewImp: UIView, EventView {
     //MARK: Property
     var onRequest: (() -> Void)?
     
+    var onLike: (() -> Void)?
+    
     private var cellData: [ReviewCellData] = []
     
     //MARK: Setup
@@ -73,7 +75,7 @@ class EventViewImp: UIView, EventView {
         imageView.layer.cornerRadius = 10
         imageView.layer.borderWidth = 1
         imageView.layer.borderColor = A.Colors.Grayscale.midGray.color.cgColor
-    
+        
         imageView.heightAnchor.constraint(equalToConstant: 360).isActive = true
         return imageView
     }()
@@ -218,6 +220,28 @@ class EventViewImp: UIView, EventView {
         return button
     }()
     
+    func displayLikeButton(show: Bool, enable: Bool) {
+        likeButton.isHidden = !show
+        likeButton.isEnabled = enable
+    }
+    
+    //MARK: Like button
+    private lazy var likeButton: UIButton = {
+        let button = UIButton()
+        
+        button.setTitle("Голосовать за продвижение", for: .normal)
+        button.backgroundColor = .blue
+        button.addTarget(self, action: #selector(likeAction), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    @objc
+    private func likeAction() {
+        likeButton.backgroundColor = .lightGray
+        onLike?()
+    }
+    
     @objc
     private func requestAction() {
         onRequest?()
@@ -241,12 +265,6 @@ class EventViewImp: UIView, EventView {
         return label
     }()
     
-    private lazy var ownerPhoneLabel: UILabel = {
-        let label = UILabel()
-        
-        return label
-    }()
-    
     private lazy var ownerEmailLabel: UILabel = {
         let label = UILabel()
         
@@ -259,8 +277,7 @@ class EventViewImp: UIView, EventView {
                 [
                  ownerInfoLabel,
                  ownerNameLabel,
-                 ownerEmailLabel,
-                 ownerPhoneLabel
+                 ownerEmailLabel
                 ]
             
         )
@@ -323,6 +340,7 @@ class EventViewImp: UIView, EventView {
                     descNameLabel,
                     descLabel,
                     requestButton,
+                    likeButton,
                     ownerStackView,
                     reviewInfoLabel,
                     catalogCollectionView
@@ -426,9 +444,9 @@ extension EventViewImp {
     }
     
     func updateOwnerInfo(owner: DataUser) {
-        ownerNameLabel.text = "Имя организатора: \(owner.name ?? "Не указано")"
+        let name = (owner.name ?? "") + " " + (owner.lastName ?? "")
+        ownerNameLabel.text = "Имя организатора: \(name)"
         ownerEmailLabel.text = "E-mail: \(owner.email ?? "-")"
-        ownerPhoneLabel.text = "Телефон: \(owner.phone ?? "-")"
     }
 }
 

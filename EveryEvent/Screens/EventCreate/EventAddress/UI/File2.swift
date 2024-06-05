@@ -3645,17 +3645,7 @@ extension Slider {
         }
     }
 }
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
-
 import UIKit
-
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
 
 import UIKit
 
@@ -3796,11 +3786,6 @@ public struct Supplementaries: ExpressibleByArrayLiteral {
     }
 }
 
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
-
 import Foundation
 
 /// Режим выбора ячейки
@@ -3812,13 +3797,6 @@ public enum SelectionMode {
     /// Поддерживается одновременный выбор нескольких ячеек
     case multi
 }
-
-
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
-
 import UIKit
 
 /// Псевдоним для `UICollectionLayoutListConfiguration.SwipeActionsConfigurationProvider`
@@ -3924,16 +3902,6 @@ extension SectionModel {
     }
 }
 
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
-
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
-
 import UIKit
 
 /// Протокол, который должна реализовывать ячейка
@@ -3946,15 +3914,7 @@ public protocol CollectionCell: UICollectionViewCell {
     func update(with model: Model)
 }
 
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
 
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
 
 import Foundation
 
@@ -4204,12 +4164,6 @@ extension ItemModel {
     }
 }
 
-
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
-
 import Foundation
 
 struct SectionID: Hashable {
@@ -4243,11 +4197,6 @@ struct ItemID: Hashable {
         self.sectionID = sectionID
     }
 }
-
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
 
 import UIKit
 
@@ -4302,10 +4251,6 @@ final class DiffableDataSource: UICollectionViewDiffableDataSource<SectionID, It
     }
 }
 
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
 
 import UIKit
 
@@ -4336,11 +4281,6 @@ final class PrefetchDataSource: NSObject, UICollectionViewDataSourcePrefetching 
         indexPaths.forEach { manager.item(at: $0)?.anyModel.cancelPrefetching() }
     }
 }
-
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
 
 import UIKit
 
@@ -4644,16 +4584,6 @@ extension CollectionViewDelegate: UICollectionViewDelegateFlowLayout {
     }
 }
 
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
-
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
-
 import UIKit
 
 final class CellRegistration<Cell: CollectionCell> {
@@ -4675,11 +4605,6 @@ final class CellRegistration<Cell: CollectionCell> {
         value
     }
 }
-
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
 
 import UIKit
 
@@ -4803,15 +4728,6 @@ extension SupplementaryModel {
 }
 
 
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
-
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
 
 import Foundation
 
@@ -4843,12 +4759,6 @@ public final class Section<Model: SectionModel>: AnySection {
         }
     }
 }
-
-
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
 
 import Foundation
 
@@ -5095,11 +5005,6 @@ extension AnySection {
         dataSource.snapshot.reconfigureItems(ids)
     }
 }
-
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
 
 import Foundation
 
@@ -5519,11 +5424,6 @@ public final class CollectionManager {
         }
         return sections[sectionID]?.decorations(ofKind: elementKind)
     }
-    
-    //
-    //  petrovich
-    //  Copyright © 2023 Heads and Hands. All rights reserved.
-    //
 
     /// Объект, описывающий новую секцию для добавления в коллекцию. Состоит из модели секции и списка моделей элементов
     public struct NewSection {
@@ -5696,11 +5596,6 @@ public final class CollectionManager {
         return sections[sectionID]
     }
 }
-
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
 
 import UIKit
 
@@ -6422,12 +6317,6 @@ extension CollectionManager {
     }
 }
 
-
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
-
 import Foundation
 
 /// Объект, ограничивающий количество вызовов в заданный промежуток времени
@@ -6511,11 +6400,6 @@ public final class Throttler {
     }
 }
 
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
-
 import Foundation
 
 /// Задача, которая может быть отменена
@@ -6563,11 +6447,6 @@ extension Task: CancellableTask {
     }
 }
 
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
-
 import Foundation
 
 /// Хранилище активных задач
@@ -6595,11 +6474,6 @@ public final class CancellableTaskStorage {
         tokens.removeAll { $0 === token }
     }
 }
-
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
 
 import Foundation
 
@@ -6697,11 +6571,6 @@ extension CancellableTaskToken {
     }
 }
 
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
-
 import Foundation
 
 /// Следит за активностью задач. Информирует, когда добавлена первая задача или удалена последняя
@@ -6761,11 +6630,6 @@ public final class ActivityMonitor {
         tokens.removeAll { $0 === token }
     }
 }
-
-//
-//  petrovich
-//  Copyright © 2022 Heads and Hands. All rights reserved.
-//
 
 import CoreLocation
 
@@ -7011,11 +6875,6 @@ public final class LocationManager: NSObject, CLLocationManagerDelegate {
     }
 }
 
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
-
 import Foundation
 
 public struct Coordinates: Codable {
@@ -7077,12 +6936,6 @@ extension AddressSuggestionVM {
     }
 }
 
-
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
-
 import UIKit
 
 final class AddressSuggestioSection: SectionModel {
@@ -7096,12 +6949,6 @@ final class AddressSuggestioSection: SectionModel {
         return NSCollectionLayoutSection(group: .horizontal(layoutSize: size, subitems: [item]))
     }
 }
-
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
-
 import UIKit
 
 final class AddressSuggestionCell: UICollectionViewCell, CollectionCell {
@@ -7202,11 +7049,6 @@ final class AddressSuggestionCell: UICollectionViewCell, CollectionCell {
     }
 }
 
-//
-//  petrovich
-//  Copyright © 2022 Heads and Hands. All rights reserved.
-//
-
 import Foundation
 
 extension Optional where Wrapped: Collection {
@@ -7226,23 +7068,19 @@ extension Optional where Wrapped: Collection {
     }
 }
 
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
-
 import UIKit
 
 public final class DetailedAddressView: UIView {
     public let collectionManager = CollectionManager()
     public let addressField = TextField(style: .plain).ui
         .borderColor(A.Colors.Primary.blue.color)
+        .backgroundColor(.white)
         .textColor(.black)
         .placeholder("Адрес мероприятия")
         .forAutoLayout()
-//    public let deliveryButton = Button(style: .bordered).ui
-//        .title("Выбрать адрес")
-//        .forAutoLayout()
+    //    public let deliveryButton = Button(style: .bordered).ui
+    //        .title("Выбрать адрес")
+    //        .forAutoLayout()
     public let detailsView = UIView().ui
         .forAutoLayout()
     public lazy var collectionView = collectionManager.collectionView.ui
@@ -7265,28 +7103,28 @@ public final class DetailedAddressView: UIView {
         .numberOfLines(0)
         .lineBreakStrategy([])
         .forAutoLayout()
-
+    
     // MARK: Properties
-
+    
     private var model: DetailedAddressVM?
-
+    
     // MARK: Initialization
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
     }
-
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: Configuration
-
+    
     private func configure() {
         backgroundColor = .clear
-
+        
         let gripView = UIView().ui
             .backgroundColor(.gray)
             .cornerRadius(2)
@@ -7296,13 +7134,13 @@ public final class DetailedAddressView: UIView {
             .backgroundColor(.white)
             .addSubview(gripView)
             .forAutoLayout()
-
+        
         collectionView.alpha = 0
         emptyView.isHidden = true
-
-//        detailsView.ui.addSubviews([deliveryButton])
+        
+        //        detailsView.ui.addSubviews([deliveryButton])
         emptyView.ui.addSubviews([emptyLabel, emptyDetails])
-
+        
         let view = UIView().configurator
             .set(\.backgroundColor, to: .white)
             .set(\.cornerRadius, to: 16)
@@ -7314,87 +7152,81 @@ public final class DetailedAddressView: UIView {
         let shadowView = ShadowView(style: .sheet).ui
             .addSubview(view)
             .forAutoLayout()
-
+        
         addSubview(shadowView)
-
+        
         NSLayoutConstraint.activate([
             shadowView.leadingAnchor.constraint(equalTo: leadingAnchor),
             shadowView.topAnchor.constraint(equalTo: topAnchor),
             trailingAnchor.constraint(equalTo: shadowView.trailingAnchor),
             bottomAnchor.constraint(equalTo: shadowView.bottomAnchor),
-
+            
             gripBackground.heightAnchor.constraint(equalToConstant: 20),
             gripBackground.leadingAnchor.constraint(equalTo: leadingAnchor),
             gripBackground.topAnchor.constraint(equalTo: topAnchor),
             trailingAnchor.constraint(equalTo: gripBackground.trailingAnchor),
-
+            
             gripView.widthAnchor.constraint(equalToConstant: 33),
             gripView.heightAnchor.constraint(equalToConstant: 4),
             gripView.centerXAnchor.constraint(equalTo: gripBackground.centerXAnchor),
             gripView.topAnchor.constraint(equalTo: gripBackground.topAnchor, constant: 8),
-
+            
             addressField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             addressField.heightAnchor.constraint(equalToConstant: 70),
             addressField.topAnchor.constraint(equalTo: gripBackground.bottomAnchor, constant: 8),
             trailingAnchor.constraint(equalTo: addressField.trailingAnchor, constant: 16),
-
-//            deliveryButton.leadingAnchor.constraint(equalTo: detailsView.leadingAnchor),
-//            deliveryButton.topAnchor.constraint(equalTo: detailsView.topAnchor),
-//            deliveryButton.heightAnchor.constraint(equalToConstant: 50),
-//            detailsView.trailingAnchor.constraint(equalTo: deliveryButton.trailingAnchor),
-//            detailsView.bottomAnchor.constraint(equalTo: deliveryButton.bottomAnchor),
-
+            
+            //            deliveryButton.leadingAnchor.constraint(equalTo: detailsView.leadingAnchor),
+            //            deliveryButton.topAnchor.constraint(equalTo: detailsView.topAnchor),
+            //            deliveryButton.heightAnchor.constraint(equalToConstant: 50),
+            //            detailsView.trailingAnchor.constraint(equalTo: deliveryButton.trailingAnchor),
+            //            detailsView.bottomAnchor.constraint(equalTo: deliveryButton.bottomAnchor),
+            
             detailsView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             detailsView.topAnchor.constraint(equalTo: addressField.bottomAnchor, constant: 28),
             trailingAnchor.constraint(equalTo: detailsView.trailingAnchor, constant: 16),
             safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: detailsView.bottomAnchor, constant: 16),
-
+            
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             collectionView.topAnchor.constraint(equalTo: addressField.bottomAnchor, constant: 8),
             trailingAnchor.constraint(equalTo: collectionView.trailingAnchor, constant: 16),
             safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 16),
-
+            
             emptyView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             emptyView.topAnchor.constraint(equalTo: addressField.bottomAnchor, constant: 8),
             trailingAnchor.constraint(equalTo: emptyView.trailingAnchor, constant: 16),
             safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: emptyView.bottomAnchor, constant: 16)
         ])
-
+        
         collectionView.constraints.forEach {
             $0.priority = UILayoutPriority.defaultLow
         }
-
+        
         emptyView.constraints.forEach {
             $0.priority = UILayoutPriority.defaultLow
         }
-
+        
         NSLayoutConstraint.activate([
             emptyLabel.leadingAnchor.constraint(equalTo: emptyView.leadingAnchor),
             emptyLabel.bottomAnchor.constraint(equalTo: emptyView.centerYAnchor),
             emptyView.trailingAnchor.constraint(equalTo: emptyLabel.trailingAnchor),
-
+            
             emptyDetails.leadingAnchor.constraint(equalTo: emptyView.leadingAnchor),
             emptyDetails.topAnchor.constraint(equalTo: emptyView.centerYAnchor, constant: 8),
             emptyView.trailingAnchor.constraint(equalTo: emptyDetails.trailingAnchor)
         ])
     }
-
+    
     // MARK: Internal
-
+    
     func update(with model: DetailedAddressVM) {
         self.model = model
-
+        
         layoutIfNeeded()
     }
-
+    
     // MARK: Private
 }
-
-
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
 
 import Foundation
 import UIKit
@@ -7422,10 +7254,6 @@ class DetailedAddressVM {
     }
 }
 
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
 
 import UIKit
 
@@ -7444,11 +7272,6 @@ extension UIView {
         return guide
     }
 }
-
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
 
 import UIKit
 
@@ -7502,11 +7325,6 @@ final class ViewKeyboardLayoutGuide: UILayoutGuide {
     }
 }
 
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
-
 import UIKit
 
 extension UIWindow {
@@ -7528,11 +7346,6 @@ extension UIWindow {
         return guide
     }
 }
-
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
 
 import UIKit
 
@@ -7599,11 +7412,6 @@ final class WindowKeyboardLayoutGuide: UILayoutGuide {
         animator.startAnimation()
     }
 }
-
-//
-//  petrovich
-//  Copyright © 2023 Heads and Hands. All rights reserved.
-//
 
 import UIKit
 
@@ -7723,12 +7531,7 @@ extension ClosureActionableControl where Self: UITextField {
     }
 }
 
-//
-//  petrovich
-//  Copyright © 2022 Heads and Hands. All rights reserved.
-//
 
 import UIKit
 
-/// Протокол описывает элемент управления, которое поддерживает действия на основе замыканий
 public protocol ClosureActionableControl {}

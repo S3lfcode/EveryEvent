@@ -13,7 +13,7 @@ final class RegVC<View: RegView>: BaseViewController<View> {
     }
     
     private func regUser() {
-        rootView.onRegAction = { name, phone, email, passw in
+        rootView.onRegAction = { name, lastName, email, passw in
             AuthService.shared.sighUp(email: email, passw: passw) { result in
                 switch result {
                 case .success(let user):
@@ -22,7 +22,7 @@ final class RegVC<View: RegView>: BaseViewController<View> {
                     let dataUser = DataUser(
                         id: user.uid,
                         name: name,
-                        phone: phone,
+                        lastName: lastName,
                         email: email,
                         passw: passw
                     )
@@ -34,6 +34,19 @@ final class RegVC<View: RegView>: BaseViewController<View> {
                         case .failure(let error):
                             print("Возникла ошибка при записи пользователя в базу данных \(error)")
                         }
+                    }
+                    
+                    let chatAppUser = ChatAppUser(
+                        firstName: name,
+                        lastName: lastName,
+                        emailAddress: email,
+                        password: passw
+                    )
+
+                    UserDefaults.standard.set("\(name) \(lastName)", forKey: "name")
+
+                    DatabaseManager.shared.insertUser(with: chatAppUser) { result in
+                        //TODO: something with result
                     }
                 case .failure(let error):
                     print("Ошибка регистрации \(error.localizedDescription)")
