@@ -12,6 +12,7 @@ struct Event {
     let lng: Double?
     let name: String?
     let urlImage: String?
+    let peopleCount: Int?
     var promotionCount: Int?
     
     var representation: [String: Any] {
@@ -27,6 +28,7 @@ struct Event {
         repres["lng"] = lng
         repres["name"] = name
         repres["urlImage"] = urlImage
+        repres["peopleCount"] = peopleCount
         repres["promotionCount"] = promotionCount
         
         return repres
@@ -42,6 +44,7 @@ struct Event {
         lng: Double?,
         name: String?,
         urlImage: String?,
+        peopleCount: Int?,
         promotionCount: Int? = 0
     ) {
         self.id = UUID().uuidString
@@ -54,6 +57,7 @@ struct Event {
         self.lng = lng
         self.name = name
         self.urlImage = urlImage
+        self.peopleCount = peopleCount
         self.promotionCount = 0
     }
     
@@ -71,7 +75,7 @@ struct Event {
         self.lng = data["lng"] as? Double
         self.name = data["name"] as? String
         self.urlImage = data["urlImage"] as? String
+        self.peopleCount = data["peopleCount"] as? Int
         self.promotionCount = data["promotionCount"] as? Int
-        
     }
 }

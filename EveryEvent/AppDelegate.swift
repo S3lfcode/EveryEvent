@@ -7,7 +7,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         //MARK: Adding YandexMaps into project
-        YMKMapKit.setApiKey("0562df40-f5a8-4def-ad28-eb68468b4678")
+        YMKMapKit.setApiKey("--------")
         YMKMapKit.setLocale("ru_RU")
         YMKMapKit.sharedInstance()
         

@@ -62,10 +62,58 @@
             filePath = "EveryEvent/Screens/EventCreate/EventCreateViewImp.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "732"
-            endingLineNumber = "732"
+            startingLineNumber = "780"
+            endingLineNumber = "780"
             landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0EA6C60C-B6AA-420E-ACCC-2FBC4BFB3815"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EveryEvent/Screens/EventCreate/EventCreateViewImp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "679"
+            endingLineNumber = "679"
+            landmarkName = "textFieldShouldReturn(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0EA6C60C-B6AA-420E-ACCC-2FBC4BFB3815 - 3b4ad4d03279b8c7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "EveryEvent.EventCreateViewImp.textFieldShouldReturn(__C.UITextField) -&gt; Swift.Bool"
+                  moduleName = "EveryEvent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/s3lfcode/Documents/Development/EveryEvent/EveryEvent/Screens/EventCreate/EventCreateViewImp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "679"
+                  endingLineNumber = "679"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  uuid = "0EA6C60C-B6AA-420E-ACCC-2FBC4BFB3815 - 3b4ad4d03279b8c7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "EveryEvent.EventCreateViewImp.textFieldShouldReturn(__C.UITextField) -&gt; Swift.Bool"
+                  moduleName = "EveryEvent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/s3lfcode/Documents/Development/EveryEvent/EveryEvent/Screens/EventCreate/EventCreateViewImp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "679"
+                  endingLineNumber = "679"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

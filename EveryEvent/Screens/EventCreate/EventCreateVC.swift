@@ -31,7 +31,7 @@ final class EventCreateVC<View: EventCreateView>: BaseViewController<View> {
     }
     
     private func createEvent() {
-        rootView.onCreateAction = { [weak self] name, url, category, address, date, desc in
+        rootView.onCreateAction = { [weak self] name, url, category, address, date, count, desc in
             guard let currentUser = Auth.auth().currentUser else {
                 print("Для создания меропритяия нужно войти в аккаунт")
                 return
@@ -48,7 +48,8 @@ final class EventCreateVC<View: EventCreateView>: BaseViewController<View> {
                 lat: currentCoordinates.latitude,
                 lng: currentCoordinates.longitude,
                 name: name,
-                urlImage: url
+                urlImage: url,
+                peopleCount: count
             )
             
             DatabaseService.shared.setEvent(event: event) { result in

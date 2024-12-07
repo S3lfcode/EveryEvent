@@ -18,7 +18,17 @@ final class EventCreateViewImp: UIView {
     }
     
     //MARK: Properties
-    var onCreateAction: ((_ name: String, _ url: String, _ category: String, _ address: String, _ date: String, _ desc: String) -> Void)?
+    var onCreateAction: (
+        (
+            _ name: String,
+            _ url: String,
+            _ category: String,
+            _ address: String,
+            _ date: String,
+            _ count: Int,
+            _ desc: String
+        ) -> Void
+    )?
     var onPresent: ((UIViewController, Bool) -> Void)?
     
     private var eventImageURL: String?
@@ -264,6 +274,40 @@ final class EventCreateViewImp: UIView {
         return stackView
     }()
     
+    //MARK: People count
+    
+    private lazy var peopleLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = " Максимальное количество участников:"
+        defaultLabelConfigure(label: label)
+        
+        return label
+    }()
+    
+    private lazy var peopleCountField: UITextField = {
+        let textField = UITextField()
+
+        textField.placeholder = "  Введите количество"
+        defaultTextFieldConfigure(textField: textField)
+        
+        return textField
+    }()
+    
+    private lazy var peopleStackView: UIStackView = {
+        let stackView = UIStackView(
+            arrangedSubviews:
+                [
+                    peopleLabel,
+                    peopleCountField
+                ]
+        )
+        
+        defaultStackViewConfigure(stackView: stackView)
+        
+        return stackView
+    }()
+    
     //MARK: Description
     private lazy var descLabel: UILabel = {
         let label = UILabel()
@@ -278,6 +322,7 @@ final class EventCreateViewImp: UIView {
         let textView = UITextView()
         
         textView.backgroundColor = A.Colors.Background.background.color
+        textView.font = .systemFont(ofSize: 16, weight: .medium)
         textView.heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
         textView.layer.borderWidth = 1
         textView.layer.borderColor = A.Colors.Primary.blue.color.cgColor
@@ -318,13 +363,14 @@ final class EventCreateViewImp: UIView {
               let category = categoryTextField.text,
               let address = currentAddressLabel.text,
               let date = dateTextField.text,
+              let peopleCount = Int(peopleCountField.text ?? "0"),
               let desc = descTextField.text
         else {
             print("EventCreateViewImp: Все поля должны быть заполнены")
             return
         }
         
-        onCreateAction?(name, url, category, address, date, desc)
+        onCreateAction?(name, url, category, address, date, peopleCount, desc)
     }
     @objc
     private func addAddress() {
@@ -343,6 +389,7 @@ final class EventCreateViewImp: UIView {
                     categoryStackView,
                     addressStackView,
                     dateStackView,
+                    peopleStackView,
                     descStackView,
                     createButton
                 ]
@@ -681,6 +728,7 @@ private extension EventCreateViewImp {
 extension EventCreateViewImp: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func presentPhotoActionSheet() {
+        self.endEditing(true)
         let actionSheet = UIAlertController(
             title: "Фото мероприятия",
             message: "Как бы вы хотели выбрать фото?",

@@ -209,6 +209,16 @@ class EventViewImp: UIView, EventView {
         return label
     }()
     
+    //MARK: People count
+    private lazy var peopleCountLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "Количество участников:"
+        label.font = .systemFont(ofSize: 15, weight: .init(700))
+        
+        return label
+    }()
+    
     //MARK: Request button
     private lazy var requestButton: UIButton = {
         let button = UIButton()
@@ -339,6 +349,7 @@ class EventViewImp: UIView, EventView {
                     dateStackView,
                     descNameLabel,
                     descLabel,
+                    peopleCountLabel,
                     requestButton,
                     likeButton,
                     ownerStackView,
@@ -440,6 +451,18 @@ extension EventViewImp {
             requestButton.isUserInteractionEnabled = false
         }
         
+        let peopleCount = requests.filter { $0.eventID == event.id && $0.status == "Подтверждена" }.count
+        
+        peopleCountLabel.text = "Количество участников: \(peopleCount)/\(event.peopleCount ?? 0)"
+        
+        if peopleCount == event.peopleCount {
+            requestButton.titleLabel?.numberOfLines = 2
+            requestButton.setTitle("Уже достигнуто максимальное количество участников", for: .normal)
+            requestButton.titleLabel?.font = .systemFont(ofSize: 14)
+            requestButton.backgroundColor = .lightGray
+            requestButton.isUserInteractionEnabled = false
+        }
+
         pageStackView.isHidden = false
     }
     

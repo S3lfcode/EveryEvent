@@ -2,9 +2,8 @@ import UIKit
 import YandexMapsMobile
 
 protocol EventCreateView: UIView {
-    var onCreateAction: ((_ name: String, _ url: String, _ category: String, _ address: String, _ date: String, _ desc: String) -> Void)? { get set }
+    var onCreateAction: ((_ name: String, _ url: String, _ category: String, _ address: String, _ date: String, _ count: Int, _ desc: String) -> Void)? { get set }
     var myLocationButton: Button { get }
-//    var deliveryButton: Button { get }
     var collectionManager: CollectionManager { get }
     var map: YMKMap { get }
     var onPresent: ((UIViewController, Bool) -> Void)? { get set }
@@ -16,8 +15,6 @@ protocol EventCreateView: UIView {
     func updateAddress(address: String, close: Bool)
     func currentCoordinates() -> Coordinates
     func currentAddress() -> String
-//    func showLoading()
-//    func hideLoading()
     func showEmptyAddressError()
     func showNoAddressError()
     func showEmptySuggestionsState()

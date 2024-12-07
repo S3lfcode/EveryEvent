@@ -39,6 +39,7 @@ final class ReviewViewImp: UIView, ReviewView {
         let textView = UITextView()
         
         textView.backgroundColor = A.Colors.Background.background.color
+        textView.font = .systemFont(ofSize: 16, weight: .medium)
         
         textView.layer.borderWidth = 1
         textView.layer.borderColor = A.Colors.Primary.blue.color.cgColor
